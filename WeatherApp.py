@@ -27,7 +27,7 @@ def window():
           # Try and except the get methods for the API request
           try:
                base_url = "http://api.openweathermap.org/data/2.5/weather?"
-               key = 'a248ebd59999429b4fdfb9320e8feecb'
+               key = ''
                city = entry.get()
                url = base_url + "appid=" + key + "&q=" + city
                response = requests.get(url).json()
@@ -126,6 +126,7 @@ Clicking The "Clear" at the end of The Result!''', background='black', foregroun
      root.iconbitmap('WeatherApp - API\icon.ico')
      root.geometry('500x300')
      root.resizable(False, False)
+     root.eval('tk::PlaceWindow . center')
 
      # Create canvas for background of the App
      imagepath = "WeatherApp - API\\bg2.jpg"

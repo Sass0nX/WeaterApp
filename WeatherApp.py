@@ -27,7 +27,7 @@ def window():
           # Try and except the get methods for the API request
           try:
                base_url = "http://api.openweathermap.org/data/2.5/weather?"
-               key = 'a248ebd59999429b4fdfb9320e8feecb'
+               key = ''
                city = entry.get()
                url = base_url + "appid=" + key + "&q=" + city
                response = requests.get(url).json()

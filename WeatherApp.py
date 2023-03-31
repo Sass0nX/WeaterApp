@@ -23,11 +23,11 @@ def window():
           global setriselabel
           global setrisetime
           global countrylabel
-
+          
           # Try and except the get methods for the API request
           try:
                base_url = "http://api.openweathermap.org/data/2.5/weather?"
-               key = ''
+               key = 'a248ebd59999429b4fdfb9320e8feecb'
                city = entry.get()
                url = base_url + "appid=" + key + "&q=" + city
                response = requests.get(url).json()
@@ -50,7 +50,7 @@ def window():
                tempstatus = fahr_to_cel(kelvin)
                feels_like_temp = fahr_to_cel(feels_like)
                
-               
+               entry.delete(0, END)
                # Labels of the API for showing the result
                templabel = ttk.Label(root, text=(f'Temperature in {city}:'), background='black',foreground='white', font='15')
                feelslabel = ttk.Label(root, text=(f'Temperature in {city} feels like:'), background='black',foreground='white', font='15')
@@ -67,29 +67,33 @@ def window():
                countrylabel = Label(root, text=(country), background='black',foreground='white', font='15')
 
                templabel.place(x=0,y=15)
-               celsiuslabel.place(x=230,y=15)
+               celsiuslabel.place(x=250,y=15)
                feelslabel.place(x=0,y=45)
-               celsius_feel_like.place(x=315,y=45)
-               aklimlabel.place(x=230, y=75)
+               celsius_feel_like.place(x=335,y=45)
+               aklimlabel.place(x=245, y=75)
                aklimstatus.place(x=0, y=75)
                localtimelabel.place(x=0, y=105)
-               localtime.place(x=230, y=105)
+               localtime.place(x=245, y=105)
                sunriselabel.place(x=0, y=135)
-               sunrisetime.place(x=230, y=135)
+               sunrisetime.place(x=245, y=135)
                setriselabel.place(x=0, y=165)
-               setrisetime.place(x=230, y=165)
-               countrylabel.place(x=570, y=0)
-
+               setrisetime.place(x=245, y=165)
+               countrylabel.place(x=400, y=0)
+               
+               mainlabel.destroy()
+               mainlabel1.destroy()
           # catch the error key "KeyError" and response accordingly
+               
           except KeyError:
                print('You Enter Wrong City Name, Please Try Again!')
                messagebox.showerror('Error','You Enter Wrong City Name, Please Try Again!')
                entry.delete(0, END)
 
-          entry.delete(0, END)
 
      # Clear function that delete the labels
      def clear():
+          global mainlabel1
+
           label_to_destroy = [celsiuslabel, feelslabel, templabel, celsius_feel_like, 
           aklimlabel, aklimstatus, localtime, localtimelabel, sunriselabel, 
           sunrisetime, setriselabel, setrisetime, countrylabel]
@@ -97,8 +101,15 @@ def window():
           for i in label_to_destroy:
                i.destroy()
 
+          mainlabel1 = Label(root, text=f'''Hello {os.getlogin()}, 
+Enter City Name And Click "Send" To Get 
+The Weather Information of Your City!
+Dont Forget To Clear The Screen By 
+Clicking The "Clear" at the end of The Result!''', background='black', foreground='white', font=15)
+          mainlabel1.place(x=50, y=30)
+
      def about():
-          messagebox.showinfo('About', 'This app created by Maor Saason')
+          messagebox.showinfo('About', 'This app created by Maor Sasson')
 
      # Class buttons that create button and using the addbutton() function to add the button to the App window
      class Buttons():
@@ -113,11 +124,11 @@ def window():
      root = Tk()
      root.title('Weather Application')
      root.iconbitmap('WeatherApp - API\icon.ico')
-     root.geometry('600x300')
+     root.geometry('500x300')
      root.resizable(False, False)
 
      # Create canvas for background of the App
-     imagepath = "WeatherApp - API\\bg.jpg"
+     imagepath = "WeatherApp - API\\bg2.jpg"
      img = Image.open(imagepath)
      photo = ImageTk.PhotoImage(img)
      canvas = tk.Canvas(root, bd=0, highlightthickness=0)
@@ -141,6 +152,13 @@ def window():
      entry.place(x=0, y=230)
      entrylabel.place(x=0, y=200)
 
+     mainlabel = Label(root, text=f'''Hello {os.getlogin()}, 
+Enter City Name And Click "Send" To Get 
+The Weather Information of Your City!
+Dont Forget To Clear The Screen By 
+Clicking The "Clear" at the end of The Result!''', background='black', foreground='white', font=15)
+     
+     mainlabel.place(x=50, y=30)
      # the mainloop methods cause that the app windows not crash
      root.mainloop()
 
